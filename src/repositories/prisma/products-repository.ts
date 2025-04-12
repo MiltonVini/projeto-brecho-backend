@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client'
-import { IProductRepository } from '../i-products-repository'
+import { IProductRepository, IProductFindInput } from '../i-products-repository'
 import { ProductUpdateInput } from '../i-users-repository'
 import { prisma } from '@/lib/prisma'
 
@@ -23,7 +23,7 @@ export class PrismaProductRepository implements IProductRepository {
     throw new Error('Method not implemented.')
   }
 
-  async findProduct(id: string) {
+  async findById(id: string) {
     const product = await prisma.product.findFirst({
       where: {
         id,
@@ -51,5 +51,14 @@ export class PrismaProductRepository implements IProductRepository {
         is_sold: true,
       },
     })
+  }
+
+  async findAll(data: IProductFindInput) {
+    const products = await prisma.product.findMany({
+      where: {
+        is_sold: data.is_sold,
+      },
+    })
+    return products
   }
 }

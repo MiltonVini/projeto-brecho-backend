@@ -27,7 +27,9 @@ model User {
 model Clients {
   id String @id @default(uuid())
   name String
-  bag Bag[]
+  instagram_name String
+  email String
+  bag Bags[]
 
   @@map("clients")
 }
@@ -43,7 +45,9 @@ model Product {
   created_at DateTime @default(now())
   updated_at DateTime? @default(now())
   Sales Sales[]
-  Bag Bag[]
+  BagProducts BagProducts[]
+
+  @@map("products")
 }
 
 model Sales {
@@ -55,20 +59,32 @@ model Sales {
   bag_id String? // Aqui bag_id vai ter relacionamento de um para um com cliente
 
   product Product @relation(fields: [product_id], references: [id])
+
+  @@map("sales")
 }
 
-model Bag {
+model Bags {
   id String @id @default(uuid())
-  bag_id Int
-  product_id String
   client_id String
   created_at DateTime @default(now())
-  deliverd_at DateTime?
+  is_delivered Boolean @default(false)
+  delivered_at DateTime?
 
-  client Clients @relation(fields: [client_id], references: [id])
-  product Product @relation(fields: [product_id], references: [id])
-  // Rever se as relações estão certas
+  client        Clients @relation(fields: [client_id], references: [id])
+  bagProducts   BagProducts[]
 
+  @@map("bags")
+}
+
+model BagProducts {
+  id String @id @default(uuid())
+  bag_id String
+  product_id String
+
+  bag       Bags    @relation(fields: [bag_id], references: [id])
+  product   Product @relation(fields: [product_id], references: [id])
+
+  @@map("bag_products")
 }
 
 
