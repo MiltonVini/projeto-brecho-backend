@@ -1,6 +1,6 @@
 import { IClientRepository } from '@/repositories/i-client-repository'
 import { Prisma } from '@prisma/client'
-import { ClientAlreadyExists } from './errors/client-already-exists'
+import { ClientAlreadyExists } from './errors/client-already-exists-error'
 
 export class RegisterClientUseCase {
   constructor(private clientRepository: IClientRepository) {
@@ -9,13 +9,17 @@ export class RegisterClientUseCase {
 
   async execute(data: Prisma.ClientsCreateInput) {
     const clientAlreadyExists = await this.clientRepository.findClient(
-      data.name,
+      data.email,
     )
 
     if (clientAlreadyExists) {
       throw new ClientAlreadyExists()
     }
 
-    await this.clientRepository.create({ name: data.name })
+    await this.clientRepository.create({
+      name: data.name,
+      instagram_name: data.instagram_name,
+      email: data.email,
+    })
   }
 }

@@ -7,7 +7,7 @@ interface SalesUseCaseRequest {
   bag_id?: string
 }
 
-export class SalesUseCase {
+export class InsertSalesUseCase {
   constructor(
     private salesRepository: ISalesRepository,
     private productRepository: IProductRepository,

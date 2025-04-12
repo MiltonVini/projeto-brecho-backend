@@ -2,8 +2,14 @@ import fastify from 'fastify'
 import { appRoutes } from './http/controllers/routes'
 import { ZodError } from 'zod'
 import { env } from 'env'
+import fastifyCors from '@fastify/cors'
 
 export const app = fastify()
+
+app.register(fastifyCors, {
+  origin: '*',
+  methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
+})
 
 app.register(appRoutes)
 

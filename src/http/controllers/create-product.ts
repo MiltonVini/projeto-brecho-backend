@@ -3,7 +3,10 @@ import { CreateProductUseCase } from '@/use-cases/create-product'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-export async function create(request: FastifyRequest, reply: FastifyReply) {
+export async function createProduct(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
   const createProductBodySchema = z
     .object({
       description: z.string(),

@@ -1,22 +1,25 @@
 import { IBagRepository } from '@/repositories/i-bag-repository'
+import { ClientAreadyHaveActiveBag } from './errors/client-already-have-active-bag-error'
 
 interface BagUseCaseRequest {
-  bag_id: number
   client_id: string
-  product_id: string
 }
 
-export class BagUseCase {
+export class CreateBagUseCase {
   constructor(private bagRepository: IBagRepository) {
     this.bagRepository = bagRepository
   }
 
   async execute(data: BagUseCaseRequest) {
-    // TODO: Quando o produto entrar em uma sacolinha, ele precisa ser um produto que já foi vendido
+    const doesClientAlreadyHaveActiveBag =
+      await this.bagRepository.findActiveBagByClientId(data.client_id)
+
+    if (doesClientAlreadyHaveActiveBag) {
+      throw new ClientAreadyHaveActiveBag()
+    }
+
     await this.bagRepository.create({
-      bag_id: data.bag_id,
       client_id: data.client_id,
-      product_id: data.product_id,
     })
   }
 }
