@@ -1,11 +1,14 @@
 import { PrismaBagRepository } from '@/repositories/prisma/bag-repository'
-import { CreateBagUseCase } from '@/use-cases/create-bag'
-import { ClientAreadyHaveActiveBag } from '@/use-cases/errors/client-already-have-active-bag'
-import { ProductNotSold } from '@/use-cases/errors/product-not-sold'
+import { CreateBagUseCase } from '@/use-cases/create-bag-use-case'
+import { ClientAreadyHaveActiveBag } from '@/use-cases/errors/client-already-have-active-bag-error'
+import { ProductNotSold } from '@/use-cases/errors/product-not-sold-error'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-export async function createBag(request: FastifyRequest, reply: FastifyReply) {
+export async function createBagController(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
   const createBagBodySchema = z.object({
     client_id: z.string(),
   })

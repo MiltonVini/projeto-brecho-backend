@@ -1,9 +1,9 @@
 import { PrismaBagRepository } from '@/repositories/prisma/bag-repository'
-import { UpdateDeliveredBag } from '@/use-cases/update-delivered-bag'
+import { UpdateDeliveredBag } from '@/use-cases/update-delivered-bag-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-export async function updateDeliveredBag(
+export async function updateDeliveredBagController(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
@@ -11,7 +11,7 @@ export async function updateDeliveredBag(
     bag_id: z.string(),
   })
 
-  const { bag_id } = updateDeliveredBagParamsSchema.parse(request.query)
+  const { bag_id } = updateDeliveredBagParamsSchema.parse(request.params)
 
   try {
     const bagRepository = new PrismaBagRepository()

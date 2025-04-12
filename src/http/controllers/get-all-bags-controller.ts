@@ -1,17 +1,26 @@
 import { PrismaBagRepository } from '@/repositories/prisma/bag-repository'
-import { GetBagsUseCase } from '@/use-cases/get-bags'
+import { GetBagsUseCase } from '@/use-cases/get-all-bags-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-export async function getBags(request: FastifyRequest, reply: FastifyReply) {
+export async function getBagsController(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
   const getBagsParamsSchema = z.object({
-    is_delivered: z.boolean().optional(),
+    is_delivered: z.string().optional(),
   })
 
-  const { is_delivered } = getBagsParamsSchema.parse(request.params)
+  const { is_delivered } = getBagsParamsSchema.parse(request.query)
 
-  const data = {
-    is_delivered,
+  console.log(request.query)
+
+  const data: { is_delivered?: boolean } = {}
+
+  if (is_delivered === 'true') {
+    data.is_delivered = true
+  } else if (is_delivered === 'false') {
+    data.is_delivered = false
   }
 
   try {

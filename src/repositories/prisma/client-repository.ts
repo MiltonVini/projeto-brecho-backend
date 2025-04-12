@@ -8,18 +8,35 @@ export class PrismaClientRepository implements IClientRepository {
       data: {
         name: data.name,
         instagram_name: data.instagram_name,
+        email: data.email,
       },
     })
     return client
   }
 
-  async findClient(name: string) {
+  async findClient(email: string) {
     const client = await prisma.clients.findFirst({
       where: {
-        name,
+        email,
       },
     })
 
     return client
+  }
+
+  async findById(id: string) {
+    const client = await prisma.clients.findFirst({
+      where: {
+        id,
+      },
+    })
+
+    return client
+  }
+
+  async findAll() {
+    const clients = await prisma.clients.findMany()
+
+    return clients
   }
 }

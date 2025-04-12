@@ -1,5 +1,5 @@
 import { IBagRepository } from '@/repositories/i-bag-repository'
-import { ClientAreadyHaveActiveBag } from './errors/client-already-have-active-bag'
+import { ClientAreadyHaveActiveBag } from './errors/client-already-have-active-bag-error'
 
 interface BagUseCaseRequest {
   client_id: string
@@ -12,7 +12,7 @@ export class CreateBagUseCase {
 
   async execute(data: BagUseCaseRequest) {
     const doesClientAlreadyHaveActiveBag =
-      await this.bagRepository.findActiveBagById(data.client_id)
+      await this.bagRepository.findActiveBagByClientId(data.client_id)
 
     if (doesClientAlreadyHaveActiveBag) {
       throw new ClientAreadyHaveActiveBag()

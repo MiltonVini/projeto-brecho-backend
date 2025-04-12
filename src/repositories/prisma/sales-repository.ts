@@ -18,6 +18,31 @@ export class PrismaSalesRepository implements ISalesRepository {
     return sale
   }
 
+  async findSalesByBag(bagId: string) {
+    const sales = await prisma.sales.findMany({
+      where: {
+        bag_id: bagId,
+      },
+      select: {
+        id: true,
+        sale_id: true,
+        transaction_date: true,
+        client_id: true,
+        bag_id: true,
+        product: {
+          select: {
+            id: true,
+            description: true,
+            price: true,
+            cost: true,
+          },
+        },
+      },
+    })
+
+    return sales
+  }
+
   async getLastSaleId() {
     const lastSale = await prisma.sales.findFirst({
       orderBy: {

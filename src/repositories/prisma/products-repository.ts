@@ -23,7 +23,7 @@ export class PrismaProductRepository implements IProductRepository {
     throw new Error('Method not implemented.')
   }
 
-  async findProduct(id: string) {
+  async findById(id: string) {
     const product = await prisma.product.findFirst({
       where: {
         id,

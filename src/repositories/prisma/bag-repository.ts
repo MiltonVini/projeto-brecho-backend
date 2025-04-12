@@ -20,11 +20,24 @@ export class PrismaBagRepository implements IBagRepository {
     return bag
   }
 
-  async findActiveBagById(id: string) {
+  async findActiveBagByClientId(id: string) {
     const bag = await prisma.bags.findFirst({
       where: {
         client_id: id,
         is_delivered: false,
+      },
+    })
+
+    return bag
+  }
+
+  async findById(id: string) {
+    const bag = await prisma.bags.findFirst({
+      where: {
+        id,
+      },
+      include: {
+        bagProducts: true,
       },
     })
 
@@ -46,9 +59,27 @@ export class PrismaBagRepository implements IBagRepository {
   }
 
   async findAll(data: IbagFindInput) {
+    console.log(data)
+
     const bags = await prisma.bags.findMany({
       where: {
         is_delivered: data.is_delivered,
+      },
+      select: {
+        id: true,
+        created_at: true,
+        is_delivered: true,
+        delivered_at: true,
+        client: {
+          select: {
+            id: true,
+            name: true,
+            instagram_name: true,
+          },
+        },
+      },
+      orderBy: {
+        created_at: 'desc',
       },
     })
 

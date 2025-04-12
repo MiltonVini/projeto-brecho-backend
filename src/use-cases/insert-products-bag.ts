@@ -1,7 +1,7 @@
 import { IBagProductsRepository } from '@/repositories/i-bag-products'
 import { IBagRepository } from '@/repositories/i-bag-repository'
 import { IProductRepository } from '@/repositories/i-products-repository'
-import { ProductNotSold } from './errors/product-not-sold'
+import { ProductNotSold } from './errors/product-not-sold-error'
 
 export interface inserProductsInBagRequest {
   client_id: string
