@@ -5,7 +5,7 @@
   "scripts": {
     "start:dev": "tsx watch src/server.ts",
     "start": "node build/server.js",
-    "build": "tsup src/server.ts --out-dir build --format cjs --splitting false"
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
