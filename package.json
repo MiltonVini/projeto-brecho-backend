@@ -5,8 +5,7 @@
   "scripts": {
     "start:dev": "tsx watch src/server.ts",
     "start": "node build/server.js",
-    "build": "tsc",
-    "debug": "ls -R build"
+    "build": "tsup src --out-dir build"
   },
   "keywords": [],
   "author": "",
