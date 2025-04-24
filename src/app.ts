@@ -13,7 +13,7 @@ import { bagRoutes } from './http/controllers/bags/routes'
 export const app = fastify()
 
 app.register(fastifyCors, {
-  origin: ['http://127.0.0.1:5173', 'https://unusualshop.com.br'],
+  origin: ['http://127.0.0.1:5173', 'https://www.unusualshop.com.br'],
   methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true,
 })
