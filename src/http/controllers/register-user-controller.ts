@@ -4,7 +4,7 @@ import { RegisterUseCase } from '@/use-cases/register-user'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-export async function registerUser(
+export async function registerUserController(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {

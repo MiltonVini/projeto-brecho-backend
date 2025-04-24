@@ -16,8 +16,6 @@ export async function insertSalesController(
 
   const data = insertSalesBodySchema.parse(request.body)
 
-  console.log(data)
-
   try {
     const productRepository = new PrismaProductRepository()
     const salesRepository = new PrismaSalesRepository()
