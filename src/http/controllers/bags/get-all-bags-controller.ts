@@ -13,8 +13,6 @@ export async function getBagsController(
 
   const { is_delivered } = getBagsParamsSchema.parse(request.query)
 
-  console.log(request.query)
-
   const data: { is_delivered?: boolean } = {}
 
   if (is_delivered === 'true') {

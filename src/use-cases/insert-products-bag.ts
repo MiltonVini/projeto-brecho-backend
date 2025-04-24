@@ -20,13 +20,13 @@ export class InsertProductsInBagUseCase {
   }
 
   async execute(data: inserProductsInBagRequest) {
-    const clientActiveBag = await this.bagRepository.findActiveBagById(
+    const clientActiveBag = await this.bagRepository.findActiveBagByClientId(
       data.client_id,
     )
 
     if (clientActiveBag) {
       for (const product of data.product_list) {
-        const productInfo = await this.productRepository.findProduct(product)
+        const productInfo = await this.productRepository.findById(product)
 
         if (productInfo?.is_sold === false) {
           throw new ProductNotSold()
