@@ -15,3 +15,15 @@ services:
     volumes:
       - ./data/postgresql:/bitnami/postgresql
     user: root
+
+  app:
+    build: .
+    container_name: brecho-app
+    depends_on:
+      - api-brecho
+    ports:
+      - "3333:3333"
+    environment:
+      DATABASE_URL: postgres://docker:docker@@api-brecho:5432/brecho
+    volumes:
+      - .:/app
