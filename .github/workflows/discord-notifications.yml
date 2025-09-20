@@ -13,3 +13,6 @@ jobs:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           template: "avatar-with-link"
           include-extras: true
+          message: "Successful commit to **{{ github.context.payload.repository.owner.name }}/{{ github.context.payload.repository.name}}**.\nDiff: {{ github.context.payload.compare }}"
+          embed: '{ "title": "{{ commit.title }}", "description": "{{ commit.description }}", "url": "{{ commit.url }}", "author": { "name": "{{ commit.author.name }} ({{ commit.author.username }})", "icon_url": "https://github.com/{{ commit.author.username }}.png"} }'
+          last-commit-only: true
