@@ -26,7 +26,10 @@ jobs:
             echo "EXPIRES_IN=${{ secrets.EXPIRES_IN }}" >> $GITHUB_ENV
             echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> $GITHUB_ENV
             echo "PORT=${{ secrets.PORT }}" >> $GITHUB_ENV
-
+      
+      - name: Run tests
+        run: npm run test
+      
       - name: build
         run: |
           npx prisma generate
